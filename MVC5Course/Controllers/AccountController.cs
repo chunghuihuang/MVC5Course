@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MVC5Course.Models;
+using System.Web.Security;
 
 namespace MVC5Course.Controllers
 {
@@ -57,8 +58,9 @@ namespace MVC5Course.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            // ViewBag.ReturnUrl = returnUrl;
+            // return View();
+            return RedirectToAction("Login", "Home",new {returnUrl= returnUrl });
         }
 
         //
@@ -391,7 +393,8 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            // AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
