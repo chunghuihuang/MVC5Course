@@ -35,7 +35,9 @@ namespace MVC5Course.Models
         [EmailAddress(ErrorMessage = "Email輸入錯誤")]
         [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
         public string Email { get; set; }
-    
+        [Required]
+        public string 客戶分類 { get; set; }
+
         public virtual ICollection<客戶銀行資訊> 客戶銀行資訊 { get; set; }
         public virtual ICollection<客戶聯絡人> 客戶聯絡人 { get; set; }
     }

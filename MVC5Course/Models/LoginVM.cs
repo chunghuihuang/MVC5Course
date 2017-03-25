@@ -16,7 +16,7 @@ namespace MVC5Course.Models
         [Required]
         [MinLength(6)]
         public string Password { get; set; }
-        public string returnUrl { get; set; }
+       
 
         public bool LoginCheck()
         {

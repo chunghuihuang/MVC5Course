@@ -13,15 +13,7 @@ namespace MVC5Course.Models
 
 		public void Commit()
 		{
-            try
-            {
-                Context.SaveChanges();
-            }
-            catch (System.Data.Entity.Core.OptimisticConcurrencyException)
-            {
-
-                throw;
-            }
+			Context.SaveChanges();
 		}
 		
 		public bool LazyLoadingEnabled

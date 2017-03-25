@@ -35,16 +35,31 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login (LoginVM login)
+        public ActionResult Login (LoginVM login, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
                 FormsAuthentication.RedirectFromLoginPage(login.Username, false);
-                return RedirectToAction("Index", "Home");
+                
+                if (ReturnUrl.StartsWith("/"))
+                {
+                     return Redirect(ReturnUrl);
+                }
+                else
+                {
+                     return RedirectToAction("Index");
+                }
             }
-                return View();
+            return View();
         }
 
-        
-    }
+        [HttpPost]
+         public ActionResult LogOff()
+         {
+             FormsAuthentication.SignOut();
+ 
+             return RedirectToAction("Index");
+         }
+
+}
 }

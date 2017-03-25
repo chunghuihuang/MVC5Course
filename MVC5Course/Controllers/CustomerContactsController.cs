@@ -11,7 +11,7 @@ using PagedList;
 
 namespace MVC5Course.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class CustomerContactsController : Controller
     {
         客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
@@ -23,7 +23,7 @@ namespace MVC5Course.Controllers
 
             if (!String.IsNullOrEmpty(keyword))
             {
-                data = data.Where(p => p.手機.Contains(keyword));
+                data = data.Where(p => p.職稱.Contains(keyword));
             }
 
             if (sortBy == "+姓名")

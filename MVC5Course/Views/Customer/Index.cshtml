@@ -7,12 +7,19 @@
 <h2>Index</h2>
 
 <form>
-    @Html.Label("客戶名稱")
-    @Html.TextBox("keyword")
+    @*@Html.Label("客戶名稱")
+    @Html.TextBox("keyword")*@
     @Html.Hidden("sortBy")
-    <input type="submit" value="搜尋" />
-</form>
+    @*@Html.DropDownList("客戶分類", new SelectList(string.Empty, "value", "text"), "請選擇客戶分類", new { @style = "width:250px;" })*@
+    <select name="客戶分類" id="客戶分類" >
+        <option value="">請選擇客戶分類</option>
 
+   <input type="submit" value="搜尋" />
+</form>
+@using (Html.BeginForm("Export", "Customer", FormMethod.Post))
+{
+    <input type="submit" value="Export" />
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -21,11 +28,15 @@
         <th>
             @Html.DisplayNameFor(model => model.客戶名稱)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.客戶分類)
+        </th>
         <th>
             
-            <a href="@Url.Action("Index", "Customer", new { sortBy = "+統一編號", keyword = ViewBag.keyword })">↑</a>
+            <a href="@Url.Action("Index", "Customer", new { sortBy = "+統一編號", keyword = ViewBag.客戶分類 })">↑</a>
             @Html.DisplayNameFor(model => model.統一編號)
-            <a href="@Url.Action("Index", "Customer", new { sortBy = "-統一編號", keyword = ViewBag.keyword })">↓</a>
+            <a href="@Url.Action("Index", "Customer", new { sortBy = "-統一編號", keyword = ViewBag.客戶分類 })">↓</a>
 
         </th>
         <th>
@@ -47,6 +58,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.客戶名稱)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.客戶分類)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.統一編號)
@@ -79,3 +93,21 @@
 @Html.PagedListPager(Model as IPagedList,
     (p) => Url.Action("Index", new { pageNo = p, keyword = ViewBag.keyword })
 )
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Customer/客戶分類",
+            datatype: "Json",
+            success: function (data) {
+             
+                $.each(data, function (index, value) {
+                    $('#客戶分類').append('<option value="' + value.客戶分類名稱 + '">' + value.客戶分類名稱 + '</option>');
+                });
+            }
+        });
+
+
+    });
+</script>
